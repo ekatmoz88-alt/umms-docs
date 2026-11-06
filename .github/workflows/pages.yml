@@ -6,6 +6,8 @@ on:
       - "index.html"
       - "01_API_ПУБЛИЧНАЯ.md"
       - "02_Клиент_ПУБЛИЧНАЯ.md"
+      - "05_Локальное_хранение_досье_ПУБЛИЧНАЯ.md"
+      - "06_АРМ_и_SOAP_интеграция_ПУБЛИЧНАЯ.md"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 permissions:
@@ -33,6 +35,8 @@ jobs:
           cp index.html _site/index.html
           cp 01_API_ПУБЛИЧНАЯ.md _site/
           cp 02_Клиент_ПУБЛИЧНАЯ.md _site/
+          cp 05_Локальное_хранение_досье_ПУБЛИЧНАЯ.md _site/
+          cp 06_АРМ_и_SOAP_интеграция_ПУБЛИЧНАЯ.md _site/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
