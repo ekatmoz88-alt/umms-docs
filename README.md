@@ -1,27 +1,38 @@
-# Документация УММС — инструкция по размещению
+# UMMS — Public Technical Documentation
 
-## Структура пакета
+Public technical documentation and source-based analysis for the historical UMMS document-processing system and its SOAP integration.
 
-| Файл | Назначение | Куда класть |
-|---|---|---|
-| 01_API_ПУБЛИЧНАЯ.md | Описание API (публичное) | На сайт / в портфолио |
-| 02_Клиент_ПУБЛИЧНАЯ.md | Описание клиента (публичное) | На сайт / в портфолио |
-| 05_Локальное_хранение_досье_ПУБЛИЧНАЯ.md | Обзор локального хранения дел и досье по исходному коду | На сайт / в портфолио |
-| 06_АРМ_и_SOAP_интеграция_ПУБЛИЧНАЯ.md | Обзор АРМ, SOAP-контракта UMMS NP и наблюдаемого поведения по журналам | На сайт / в портфолио |
-| index.html | Публичная версия в HTML | На сайт (отдельная страница) |
-| 03_API_ПОЛНАЯ.md | API — полная версия, часть 1 (NDA) | Только внутренний контур |
-| 03b_ОШИБКИ_API.md | API — полная версия, часть 2: ошибки (NDA) | Только внутренний контур |
-| 04_Клиент_ПОЛНАЯ.md | Клиент — полная версия (NDA) | Только внутренний контур |
+**Published documentation:** https://ekatmoz88-alt.github.io/umms-docs/
 
-## Правила
+## Scope
 
-1. Публичные файлы не содержат адресов сервисов, примеров SOAP, тестовых данных
-2. Полные файлы содержат служебную информацию — доступ строго ограничен, выдаются только по NDA
-3. В публичной HTML-версии используется встроенная подсветка синтаксиса Prism.js (работает полностью автономно, без интернета)
-4. При сомнениях: «класть на сайт?» → ответ «нет, это в полную версию»
+This repository contains selected public materials describing the UMMS API, client-side workflows, local case and dossier storage, and the relationship between workstation roles and the observed SOAP integration.
 
-## Быстрый старт
+It is a historical documentation and analysis project. It does not claim that the original system was implemented on .NET 8, and it is separate from the Deshifrator application suite, ARM Descriptor, FMS Territory, and the Passport Account System.
 
-1. Скопируй публичные файлы (.md + index.html) в папку docs/ на сайте
-2. NDA-файлы (.md полные) положи в отдельную папку, доступ к которой ограничен
-3. Проверь, что на сайте НЕТ файлов 03, 03b и 04
+## Public documents
+
+| File | Subject |
+|---|---|
+| [01_API_ПУБЛИЧНАЯ.md](01_API_ПУБЛИЧНАЯ.md) | Public overview of the UMMS API and its operations |
+| [02_Клиент_ПУБЛИЧНАЯ.md](02_Клиент_ПУБЛИЧНАЯ.md) | Public overview of the client application and workflows |
+| [05_Локальное_хранение_досье_ПУБЛИЧНАЯ.md](05_Локальное_хранение_досье_ПУБЛИЧНАЯ.md) | Source-based review of local case and dossier storage |
+| [06_АРМ_и_SOAP_интеграция_ПУБЛИЧНАЯ.md](06_АРМ_и_SOAP_интеграция_ПУБЛИЧНАЯ.md) | Workstation overview and SOAP integration analysis, with provisional paths identified explicitly |
+| [index.html](index.html) | Published HTML overview |
+
+## Evidence boundaries
+
+The materials distinguish documented system descriptions, inspected source-code evidence, runtime observations and provisional integration hypotheses. Findings in the source reviews are limited to the files and excerpts actually inspected; they should not be read as a complete source-code audit.
+
+The public repository does not include the complete application source tree or internal documentation. No live production endpoint, production credentials, personal data, private keys or actual exchange files are published.
+
+## Related projects
+
+- [Deshifrator documentation](https://github.com/ekatmoz88-alt/deshifrator-docs) — separate historical desktop application suite.
+- [ARM Descriptor documentation](https://github.com/ekatmoz88-alt/descriptor-arm-spec) — separate document-processing workstation.
+- [FMS Territory archive](https://github.com/ekatmoz88-alt/ppo-territory-archive) — separate enterprise information system.
+- [Passport Account System documentation](https://github.com/ekatmoz88-alt/territory-docs) — separate passport-accounting system.
+
+## Documentation approach
+
+This repository uses Markdown and a static HTML publication. Technical claims are kept within the available documentary and source evidence; items that need further primary-source confirmation are marked as provisional or unverified.
