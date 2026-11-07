@@ -36,3 +36,8 @@ The public repository does not include the complete application source tree or i
 ## Documentation approach
 
 This repository uses Markdown and a static HTML publication. Technical claims are kept within the available documentary and source evidence; items that need further primary-source confirmation are marked as provisional or unverified.
+
+
+## Tags
+
+`umms` · `soap` · `xml` · `api-documentation` · `legacy-systems` · `en-ru`
