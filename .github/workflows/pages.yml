@@ -1,20 +1,26 @@
-name: Deploy public UMMS documentation
+name: Build and deploy public UMMS documentation
+
 on:
   push:
     branches: [main]
     paths:
       - "index.html"
+      - "README.md"
       - "01_API_ПУБЛИЧНАЯ.md"
       - "02_Клиент_ПУБЛИЧНАЯ.md"
       - "05_Локальное_хранение_досье_ПУБЛИЧНАЯ.md"
       - "06_АРМ_и_SOAP_интеграция_ПУБЛИЧНАЯ.md"
+      - "docs/user-guide/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
+
 permissions:
   contents: read
+
 concurrency:
   group: pages
   cancel-in-progress: true
+
 jobs:
   deploy:
     environment:
@@ -29,14 +35,64 @@ jobs:
       - uses: actions/configure-pages@v5
         with:
           enablement: true
-      - name: Prepare public-only website
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install Markdown renderer
+        run: python -m pip install Markdown
+      - name: Prepare public website and render user guide
         run: |
-          mkdir -p _site
+          mkdir -p _site/docs/user-guide
           cp index.html _site/index.html
           cp 01_API_ПУБЛИЧНАЯ.md _site/
           cp 02_Клиент_ПУБЛИЧНАЯ.md _site/
           cp 05_Локальное_хранение_досье_ПУБЛИЧНАЯ.md _site/
           cp 06_АРМ_и_SOAP_интеграция_ПУБЛИЧНАЯ.md _site/
+          python - <<'PY'
+          from pathlib import Path
+          import html
+          import markdown
+
+          source = Path("docs/user-guide/printing-documents.md").read_text(encoding="utf-8")
+          body = markdown.markdown(
+              source,
+              extensions=["tables", "fenced_code", "toc", "sane_lists"],
+              output_format="html5",
+          )
+          title = "Печать документов — руководство пользователя"
+          page = f"""<!doctype html>
+          <html lang="ru">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>{html.escape(title)} · Документация УММС</title>
+            <style>
+              :root {{ color-scheme: light; --ink:#202b3c; --muted:#5b6575; --line:#dce2ea; --link:#174f91; }}
+              * {{ box-sizing:border-box; }}
+              body {{ margin:0; background:#f4f6f9; color:var(--ink); font:16px/1.7 system-ui,-apple-system,"Segoe UI",sans-serif; }}
+              header {{ background:#fff; border-bottom:1px solid var(--line); }}
+              header nav {{ max-width:960px; margin:auto; padding:16px 24px; }}
+              a {{ color:var(--link); }}
+              main {{ max-width:960px; margin:32px auto; padding:36px 44px; background:#fff; border:1px solid var(--line); border-radius:10px; }}
+              h1,h2,h3 {{ line-height:1.25; color:#1a3d6d; }}
+              h1 {{ margin-top:0; font-size:2rem; }}
+              table {{ width:100%; border-collapse:collapse; margin:20px 0; display:block; overflow-x:auto; }}
+              th,td {{ border:1px solid var(--line); padding:9px 12px; text-align:left; }}
+              th {{ background:#eef3f9; }}
+              blockquote {{ margin:20px 0; padding:12px 18px; border-left:4px solid #1a3d6d; background:#f4f7fb; }}
+              code {{ overflow-wrap:anywhere; }}
+              footer {{ max-width:960px; margin:0 auto 32px; padding:0 24px; color:var(--muted); font-size:.9rem; }}
+              @media(max-width:640px) {{ main {{ margin:16px 10px; padding:24px 18px; }} }}
+            </style>
+          </head>
+          <body>
+            <header><nav><a href="../../index.html">← Документация УММС</a> · <strong>Руководство пользователя</strong></nav></header>
+            <main>{body}</main>
+            <footer>UMMS · Публичная техническая документация · Статус материала указан в документе</footer>
+          </body>
+          </html>"""
+          Path("_site/docs/user-guide/printing-documents.html").write_text(page, encoding="utf-8")
+          PY
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
