@@ -18,6 +18,7 @@ It is a historical documentation and analysis project. It does not claim that th
 | [02_Клиент_ПУБЛИЧНАЯ.md](02_Клиент_ПУБЛИЧНАЯ.md) | Public overview of the client application and workflows |
 | [05_Локальное_хранение_досье_ПУБЛИЧНАЯ.md](05_Локальное_хранение_досье_ПУБЛИЧНАЯ.md) | Source-based review of local case and dossier storage |
 | [06_АРМ_и_SOAP_интеграция_ПУБЛИЧНАЯ.md](06_АРМ_и_SOAP_интеграция_ПУБЛИЧНАЯ.md) | Workstation overview and SOAP integration analysis, with provisional paths identified explicitly |
+| [docs/user-guide/printing-documents.md](docs/user-guide/printing-documents.md) | User guide: printing documents (rendered HTML on Pages) |
 | [index.html](index.html) | Published HTML overview |
 
 ## Evidence boundaries
